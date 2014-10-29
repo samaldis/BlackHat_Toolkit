@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import sqlite3 as sql
 import md5
 
@@ -16,6 +17,12 @@ def setup_dbs(user,passwd):
 	hcur.execute("CREATE TABLE hosts(id INT PRIMARY KEY, ip TEXT, nmap TEXT)")
 	hostdb.commit()
 	hostdb.close()
+	print "Creating session db"
+	sessdb = sql.connect("www/dbs/sess.db")
+	sesscur = sessdb.cursor()
+	sesscur.execute("CREATE TABLE session(id INT PRIMARY KEY, sessionid TEXT, timestamp TEXT, hash TEXT)")
+	sessdb.commit()
+	sessdb.close()
 	print "Created hosts database. all local databases created"
 	print "Please use the latest github clone for the newest exploits and auxiliary dbs"
 	  
